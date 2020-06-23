@@ -36,6 +36,10 @@
 	left: 81%;
 }
 
+textarea {
+	width:100%;
+}
+
 @media screen and (max-width: 55em) {
 	.content__title::before,
 	.content__title::after {

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body,html {
+            margin:0;
+            padding:0;
+        }
+        :root {
+            --num-accord:3;
+            --num-accord-lessone:calc(var(--num-accord) - 1);
+            --accord-width:4em;
+        }
+        .accord_wrap {
+            width:100%;
+        }
+        .accord_container {
+            display:flex;
+            height:75vh;
+        }
+        .accord_entry {
+            width:var(--accord-width);
+            outline:1px solid blue;
+            transition:all 0.5s ease-in-out;
+            background:#ddd;
+        }
+        .accord_entry.active {
+            background:#fff;
+            width:calc(100% - calc(var(--num-accord-lessone) * var(--accord-width)));
+        }
+    </style>
+</head>
+<body>
+    <section class='accord_wrap'>
+        <div class='accord_container'>
+            <div class='accord_entry active'>
+                <div class='accord_contents'>
+                    <h1>one</h1>
+                </div>
+            </div>
+            <div class='accord_entry'>
+                <div class='accord_contents'>
+                    <h1>two</h1>
+                </div>
+            </div>
+            <div class='accord_entry'>
+                <div class='accord_contents'>
+                    <h1>three</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script>
+        document.querySelector('.accord_container').addEventListener('click',function(e){
+            document.querySelector('.accord_entry.active').classList.remove('active');
+            e.target.closest('.accord_entry').classList.add('active');
+        });
+    </script>
+
+</body>
+</html>

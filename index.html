@@ -62,7 +62,6 @@
 			<script>
 				document.body.addEventListener("click", (e)=>{
 					if(e.target.classList.contains("copy")) {
-						console.log(e.target.parentElement.nextElementSibling);
 						navigator.clipboard.writeText(e.target.parentElement.nextElementSibling.value);
 					}
 				});

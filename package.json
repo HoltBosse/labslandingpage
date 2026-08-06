@@ -1,0 +1,14 @@
+{
+  "name": "labslandingpage",
+  "version": "1.0.0",
+  "description": "Holt Bosse Labs landing page",
+  "private": true,
+  "type": "module",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}

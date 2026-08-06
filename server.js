@@ -40,7 +40,12 @@ const server = http.createServer((req, res) => {
 
 	fs.readFile(filePath, (err, data) => {
 		if (err) {
-			if (err.code === 'ENOENT') return send(res, 404, 'Not found');
+			if (err.code === 'ENOENT') {
+				return fs.readFile(path.join(ROOT, '404.html'), (notFoundErr, notFoundData) => {
+					if (notFoundErr) return send(res, 404, 'Not found');
+					send(res, 404, notFoundData, { 'Content-Type': MIME_TYPES['.html'] });
+				});
+			}
 			return send(res, 500, 'Internal server error');
 		}
 		const ext = path.extname(filePath).toLowerCase();

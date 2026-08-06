@@ -134,6 +134,21 @@ header {
 	left: 81%;
 }
 
+.error-code {
+	font-family: 'Poppins', sans-serif;
+	font-size: 4rem;
+	font-weight: 600;
+	line-height: 1;
+	margin: 0.5em 0 0;
+	color: var(--hbgreen);
+}
+
+.error-message {
+	font-size: 1.1rem;
+	margin: 0.5em 0 0;
+	text-align: center;
+}
+
 textarea {
 	width:100%;
 }

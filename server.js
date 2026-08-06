@@ -34,8 +34,7 @@ const server = http.createServer((req, res) => {
 
 	const filePath = path.normalize(path.join(ROOT, requestPath));
 
-	// Prevent path traversal outside the project root.
-	if (!filePath.startsWith(ROOT)) {
+	if (filePath !== ROOT && !filePath.startsWith(ROOT + path.sep)) {
 		return send(res, 403, 'Forbidden');
 	}
 

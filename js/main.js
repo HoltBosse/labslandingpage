@@ -1,3 +1,12 @@
+/**
+ * Fade-in effect, based on demo.js from Codrops (http://www.codrops.com)
+ * Licensed under the MIT license.
+ */
+setTimeout(() => document.body.classList.add('render'), 60);
+
+/**
+ * WebGL blob animation in the header, based on demo3.js from Codrops.
+ */
 var canvas = document.querySelector('#scene');
 var width = canvas.offsetWidth,
     height = canvas.offsetHeight;
@@ -8,7 +17,6 @@ var renderer = new THREE.WebGLRenderer({
 });
 renderer.setPixelRatio(window.devicePixelRatio > 1 ? 2 : 1);
 renderer.setSize(width, height);
-//renderer.setClearColor(0xaaaaaa);
 
 var scene = new THREE.Scene();
 
@@ -19,19 +27,19 @@ var light = new THREE.HemisphereLight(0xffffff, 0xfC056D, 0.6);
 scene.add(light);
 
 var light = new THREE.DirectionalLight(0x11aa33, 0.4);
-light.position.set(200, 300, 400); 
+light.position.set(200, 300, 400);
 scene.add(light);
 var light2 = light.clone();
-light2.position.set(-200, 300, 400); 
+light2.position.set(-200, 300, 400);
 scene.add(light2);
 
 var geometry = new THREE.IcosahedronGeometry(120, 4);
 for(var i = 0; i < geometry.vertices.length; i++) {
     var vector = geometry.vertices[i];
-    vector._o = vector.clone();  
+    vector._o = vector.clone();
 }
 var material = new THREE.MeshPhongMaterial({
-    emissive: 0x23f660, 
+    emissive: 0x23f660,
     emissiveIntensity: 0.4,
     shininess: 0
 });
@@ -65,7 +73,7 @@ function onResize() {
     width = canvas.offsetWidth;
     height = canvas.offsetHeight;
     camera.aspect = width / height;
-    camera.updateProjectionMatrix();  
+    camera.updateProjectionMatrix();
     renderer.setSize(width, height);
 }
 

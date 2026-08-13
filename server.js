@@ -29,7 +29,21 @@ function send(res, statusCode, body, headers = {}) {
 }
 
 const server = http.createServer((req, res) => {
-	let requestPath = decodeURIComponent(req.url.split('?')[0]);
+	if (req.method !== 'GET' && req.method !== 'HEAD') {
+		return send(res, 405, 'Method not allowed', { Allow: 'GET, HEAD' });
+	}
+
+	let requestPath;
+	try {
+		requestPath = decodeURIComponent(req.url.split('?')[0]);
+	} catch {
+		return send(res, 400, 'Bad request');
+	}
+
+	if (requestPath.includes('\0')) {
+		return send(res, 400, 'Bad request');
+	}
+
 	if (requestPath === '/') requestPath = '/index.html';
 
 	const filePath = path.normalize(path.join(ROOT, requestPath));
@@ -46,6 +60,9 @@ const server = http.createServer((req, res) => {
 					send(res, 404, notFoundData, { 'Content-Type': MIME_TYPES['.html'] });
 				});
 			}
+			if (err.code === 'EISDIR') {
+				return send(res, 403, 'Forbidden');
+			}
 			return send(res, 500, 'Internal server error');
 		}
 		const ext = path.extname(filePath).toLowerCase();
@@ -53,6 +70,14 @@ const server = http.createServer((req, res) => {
 		send(res, 200, data, { 'Content-Type': contentType });
 	});
 });
+
+process.on('uncaughtException', (err) => {
+	console.error('Uncaught exception (server kept running):', err);
+});
+
+server.requestTimeout = 30000;
+server.headersTimeout = 10000;
+server.keepAliveTimeout = 5000;
 
 server.listen(PORT, HOST, () => {
 	console.log(`Serving ${ROOT} at http://${HOST}:${PORT}`);
